@@ -1,10 +1,8 @@
 from rest_framework import serializers
-from resume.models import Certificate, Resume
+from resume.models import Resume, Certificate
 
 
 class CertificateSerializer(serializers.ModelSerializer):
-
-    # review_author = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Certificate
@@ -12,6 +10,7 @@ class CertificateSerializer(serializers.ModelSerializer):
 
 
 class ResumeSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
     certificates = CertificateSerializer(many=True, read_only=True)
 
     class Meta:

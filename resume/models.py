@@ -1,8 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
 
 
 class Resume(models.Model):
-
+    # user = models.O(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name="user")
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email_id = models.EmailField()
@@ -11,7 +16,7 @@ class Resume(models.Model):
     github_url = models.URLField()
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return str(self.user.username) + str(self.id)
 
 
 class Certificate(models.Model):

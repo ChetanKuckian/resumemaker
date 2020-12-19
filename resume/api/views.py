@@ -1,42 +1,43 @@
 from rest_framework import generics
-from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import mixins
+from rest_framework.filters import SearchFilter
+from rest_framework import viewsets
+from rest_framework.viewsets import ModelViewSet
 
+from resume.api.permissions import IsOwnerOrReadOnly
 from resume.models import Resume, Certificate
 from resume.api.serializers import ResumeSerializer, CertificateSerializer
 
 
-class ResumeListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Resume.objects.all().order_by("id")
-    serializer_class = ResumeSerializer
-    # permission_classes = [IsAdminUserorReadOnly]
-    # pagination_class = SmallSetPagination
+class ResumeViewSet(ModelViewSet):
 
-
-class ResumeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Resume.objects.all()
     serializer_class = ResumeSerializer
-    # permission_classes = [IsAdminUserorReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        queryset = Resume.objects.all()
+        username = self.request.user
+        print(self.request.user)
+        if username is not None:
+            queryset = queryset.filter(user=username)
+        return queryset
+
+    def perform_create(self, serializer):
+        user_resume = self.request.user
+        serializer.save(user=user_resume)
 
 
 class CertificateCreateAPIView(generics.CreateAPIView):
     queryset = Certificate.objects.all()
     serializer_class = CertificateSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         resume_pk = self.kwargs.get("resume_pk")
         resume = generics.get_object_or_404(Resume, pk=resume_pk)
-        # review_author = self.request.user
-
-        #certificate_queryset = Certificate.objects.filter(resume=resume)
-
-        # if review_queryset.exists():
-        #     raise ValidationError("You Have ALready Reviewd This Ebook!")
-
         serializer.save(resume=resume)
 
 
 class CertificateDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Certificate.objects.all()
     serializer_class = CertificateSerializer
-    # permission_classes = [IsReviewAuthorOrReadOnly]
