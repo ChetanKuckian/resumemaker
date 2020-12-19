@@ -23,17 +23,17 @@ class CertificateCreateAPIView(generics.CreateAPIView):
     serializer_class = CertificateSerializer
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    # def perform_create(self, serializer):
-    #     resume_pk = self.kwargs.get("resume_pk")
-    #     resume = generics.get_object_or_404(Resume, pk=resume_pk)
-    #     # review_author = self.request.user
+    def perform_create(self, serializer):
+        resume_pk = self.kwargs.get("resume_pk")
+        resume = generics.get_object_or_404(Resume, pk=resume_pk)
+        # review_author = self.request.user
 
-    #     # certificate_queryset = Certificate.objects.filter(resume=resume)
+        #certificate_queryset = Certificate.objects.filter(resume=resume)
 
-    #     # if review_queryset.exists():
-    #     #     raise ValidationError("You Have ALready Reviewd This Ebook!")
+        # if review_queryset.exists():
+        #     raise ValidationError("You Have ALready Reviewd This Ebook!")
 
-    #     serializer.save(resume=resume)
+        serializer.save(resume=resume)
 
 
 class CertificateDetailAPIView(generics.RetrieveUpdateDestroyAPIView):

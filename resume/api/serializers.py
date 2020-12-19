@@ -8,12 +8,11 @@ class CertificateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Certificate
-        # exclude = ("resume",)
-        fields = "__all__"
+        exclude = ("resume",)
 
 
 class ResumeSerializer(serializers.ModelSerializer):
-    certificate = CertificateSerializer(many=True, read_only=True)
+    certificates = CertificateSerializer(many=True, read_only=True)
 
     class Meta:
         model = Resume
