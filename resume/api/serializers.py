@@ -55,10 +55,10 @@ class PersonalProjectSerializer(serializers.ModelSerializer):
 class ResumeSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     certificates = CertificateSerializer(many=True, read_only=True)
-    workexperience = WorkExperienceSerializer(many=True, read_only=True)
-    education = EducationSerializer(many=True, read_only=True)
-    achievement = AchievementSerializer(many=True, read_only=True)
-    personalproject = PersonalProjectSerializer(many=True, read_only=True)
+    workexperiences = WorkExperienceSerializer(many=True, read_only=True)
+    educations = EducationSerializer(many=True, read_only=True)
+    achievements = AchievementSerializer(many=True, read_only=True)
+    personalprojects = PersonalProjectSerializer(many=True, read_only=True)
 
     class Meta:
         model = Resume

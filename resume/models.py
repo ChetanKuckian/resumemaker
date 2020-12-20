@@ -47,7 +47,7 @@ class WorkExperience(models.Model):
     from_date = models.DateField()
     to_date = models.DateField()
     city_country = models.CharField(max_length=150)
-    role_resposibility = models.TextField()
+    role_responsibility = models.TextField()
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="workexperiences")
