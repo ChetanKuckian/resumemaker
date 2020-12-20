@@ -14,6 +14,10 @@ class Resume(models.Model):
     mobile = models.CharField(max_length=10)
     linkedin_url = models.URLField()
     github_url = models.URLField()
+    skills = models.TextField(null=True)
+    interests = models.TextField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return str(self.id)
@@ -24,10 +28,10 @@ class Certificate(models.Model):
     certificate_name = models.CharField(max_length=150)
     certificate_date = models.DateField()
     certificate_desc = models.TextField()
-    certificate_url = models.URLField()
+    certificate_url = models.URLField(null=True)
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
-                               related_name="certi_resume")
+                               related_name="certificates")
 
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="cert_user")
@@ -43,10 +47,10 @@ class WorkExperience(models.Model):
     from_date = models.DateField()
     to_date = models.DateField()
     city_country = models.CharField(max_length=150)
+    role_resposibility = models.TextField()
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
-                               related_name="workexp_resume")
-
+                               related_name="workexperiences")
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="workexp_user")
 
@@ -63,8 +67,7 @@ class Education(models.Model):
     gpa = models.CharField(max_length=10)
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
-                               related_name="edu_resume")
-
+                               related_name="educations")
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="edu_user")
 
@@ -80,10 +83,25 @@ class Achievement(models.Model):
     achievement_desc = models.TextField()
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
-                               related_name="achievement_resume")
-
+                               related_name="achievements")
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="achievement_user")
+
+    def __str__(self):
+        return str(self.id)
+
+
+class PersonalProject(models.Model):
+
+    project_name = models.CharField(max_length=150)
+    from_date = models.DateField()
+    to_date = models.DateField()
+    project_desc = models.TextField()
+
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
+                               related_name="personalprojects")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="project_user")
 
     def __str__(self):
         return str(self.id)
