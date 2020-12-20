@@ -3,10 +3,13 @@ from resume.models import Resume, Certificate
 
 
 class CertificateSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    resume = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Certificate
-        exclude = ("resume",)
+        # exclude = ("resume",)
+        fields = "__all__"
 
 
 class ResumeSerializer(serializers.ModelSerializer):

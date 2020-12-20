@@ -35,9 +35,14 @@ class CertificateCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         resume_pk = self.kwargs.get("resume_pk")
         resume = generics.get_object_or_404(Resume, pk=resume_pk)
-        serializer.save(resume=resume)
+        user = self.request.user
+        serializer.save(resume=resume, user=user)
+
+    permission_classes = [IsAuthenticated]
 
 
 class CertificateDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Certificate.objects.all()
     serializer_class = CertificateSerializer
+
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
