@@ -16,6 +16,7 @@ class Resume(models.Model):
     github_url = models.URLField()
     skills = models.TextField(null=True)
     interests = models.TextField(null=True)
+    avatar = models.ImageField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 

@@ -59,7 +59,15 @@ class ResumeSerializer(serializers.ModelSerializer):
     educations = EducationSerializer(many=True, read_only=True)
     achievements = AchievementSerializer(many=True, read_only=True)
     personalprojects = PersonalProjectSerializer(many=True, read_only=True)
+    avatar = serializers.ImageField(read_only=True)
 
     class Meta:
         model = Resume
         fields = "__all__"
+
+
+class ResumeAvaatarSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Resume
+        fields = ("avatar",)

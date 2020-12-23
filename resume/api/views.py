@@ -7,7 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 from django.core.exceptions import PermissionDenied
 from resume.api.permissions import IsOwnerOrReadOnly
 from resume.models import Resume, Certificate, WorkExperience, Education, Achievement, PersonalProject
-from resume.api.serializers import ResumeSerializer, CertificateSerializer, WorkExperienceSerializer, EducationSerializer, AchievementSerializer, PersonalProjectSerializer
+from resume.api.serializers import ResumeSerializer, CertificateSerializer, WorkExperienceSerializer, EducationSerializer, AchievementSerializer, PersonalProjectSerializer, ResumeAvaatarSerializer
 
 
 # Resume model viewsets
@@ -20,7 +20,6 @@ class ResumeViewSet(ModelViewSet):
     def get_queryset(self):
         queryset = Resume.objects.all()
         username = self.request.user
-        print(self.request.user)
         if username is not None:
             queryset = queryset.filter(user=username)
         return queryset
@@ -151,3 +150,16 @@ class PersonalProjectDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PersonalProjectSerializer
 
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+
+# Resume Image update View
+
+class AvatarUpdateView(generics.UpdateAPIView):
+
+    serializer_class = ResumeAvaatarSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        resume_pk = self.kwargs.get("resume_pk")
+        resume = generics.get_object_or_404(Resume, pk=resume_pk)
+        return resume
