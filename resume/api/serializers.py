@@ -65,6 +65,15 @@ class ResumeSerializer(serializers.ModelSerializer):
         model = Resume
         fields = "__all__"
 
+    def validate_mobile(self, value):
+        if len(value) != 10:
+            raise serializers.ValidationError(
+                'Mobile Number Should be of 10 digits')
+        else:
+            if not value.isnumeric():
+                raise serializers.ValidationError(
+                    'Please Provide Only Numbers in Mobile')
+
 
 class ResumeAvaatarSerializer(serializers.ModelSerializer):
 

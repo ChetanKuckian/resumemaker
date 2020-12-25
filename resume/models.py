@@ -5,19 +5,20 @@ from django.contrib.auth.models import User
 
 
 class Resume(models.Model):
-    # user = models.O(User, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name="user")
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
     email_id = models.EmailField()
-    mobile = models.CharField(max_length=10)
-    linkedin_url = models.URLField()
-    github_url = models.URLField()
+    mobile = models.CharField(max_length=10, null=True)
+    linkedin_url = models.URLField(null=True)
+    github_url = models.URLField(null=True)
+    designation = models.CharField(max_length=50)
+    summary = models.CharField(max_length=300)
     skills = models.TextField(null=True)
     interests = models.TextField(null=True)
     avatar = models.ImageField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
@@ -27,8 +28,8 @@ class Resume(models.Model):
 class Certificate(models.Model):
 
     certificate_name = models.CharField(max_length=150)
-    certificate_date = models.DateField()
-    certificate_desc = models.TextField()
+    certificate_date = models.DateField(null=True)
+    certificate_desc = models.TextField(null=True)
     certificate_url = models.URLField(null=True)
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
@@ -43,11 +44,11 @@ class Certificate(models.Model):
 
 class WorkExperience(models.Model):
 
-    job_title = models.CharField(max_length=150)
-    company = models.CharField(max_length=150)
+    job_title = models.CharField(max_length=100)
+    company = models.CharField(max_length=90)
     from_date = models.DateField()
-    to_date = models.DateField()
-    city_country = models.CharField(max_length=150)
+    to_date = models.DateField(null=True)
+    city_country = models.CharField(max_length=100, null=True)
     role_responsibility = models.TextField()
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
@@ -61,11 +62,11 @@ class WorkExperience(models.Model):
 
 class Education(models.Model):
 
-    program_name = models.CharField(max_length=150)
-    institute_name = models.CharField(max_length=150)
+    program_name = models.CharField(max_length=60)
+    institute_name = models.CharField(max_length=60)
     from_date = models.DateField()
-    to_date = models.DateField()
-    gpa = models.CharField(max_length=10)
+    to_date = models.DateField(null=True)
+    gpa = models.CharField(max_length=10, null=True)
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="educations")
@@ -78,10 +79,10 @@ class Education(models.Model):
 
 class Achievement(models.Model):
 
-    achievement_name = models.CharField(max_length=150)
-    from_date = models.DateField()
-    to_date = models.DateField()
-    achievement_desc = models.TextField()
+    achievement_name = models.CharField(max_length=100)
+    from_date = models.DateField(null=True)
+    to_date = models.DateField(null=True)
+    achievement_desc = models.TextField(null=True)
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="achievements")
@@ -94,10 +95,11 @@ class Achievement(models.Model):
 
 class PersonalProject(models.Model):
 
-    project_name = models.CharField(max_length=150)
-    from_date = models.DateField()
-    to_date = models.DateField()
+    project_name = models.CharField(max_length=100)
+    from_date = models.DateField(null=True)
+    to_date = models.DateField(null=True)
     project_desc = models.TextField()
+    project_url = models.URLField(null=True)
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="personalprojects")
