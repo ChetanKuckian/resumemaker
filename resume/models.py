@@ -17,7 +17,7 @@ class Resume(models.Model):
     summary = models.CharField(max_length=300)
     skills = models.TextField(null=True)
     interests = models.TextField(null=True)
-    avatar = models.ImageField(null=True, blank=True)
+    avatar = models.ImageField(upload_to="", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 

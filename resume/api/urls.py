@@ -1,8 +1,10 @@
 from django.urls import path, include
 from resume.api.views import ResumeViewSet, CertificateCreateAPIView, CertificateDetailAPIView, WorkExperienceCreateAPIView, WorkExperienceDetailAPIView, EducationCreateAPIView, EducationDetailAPIView, AchievementCreateAPIView, AchievementDetailAPIView, PersonalProjectCreateAPIView, PersonalProjectDetailAPIView, AvatarUpdateView
 from rest_framework.routers import DefaultRouter
+
 router = DefaultRouter()
 router.register(r"resume", ResumeViewSet, basename="resume")
+
 
 urlpatterns = [
     path("", include(router.urls)),
