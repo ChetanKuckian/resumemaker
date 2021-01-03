@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from resume.models import Resume, Certificate, WorkExperience, Education, Achievement, PersonalProject
+from resume.models import Resume, Certificate, WorkExperience, Education, Achievement, PersonalProject, Skill, Interest
 
 
 class CertificateSerializer(serializers.ModelSerializer):
@@ -52,6 +52,26 @@ class PersonalProjectSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class SkillSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    resume = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Skill
+        # exclude = ("resume",)
+        fields = "__all__"
+
+
+class InterestSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    resume = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Interest
+        # exclude = ("resume",)
+        fields = "__all__"
+
+
 class ResumeSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     certificates = CertificateSerializer(many=True, read_only=True)
@@ -59,6 +79,8 @@ class ResumeSerializer(serializers.ModelSerializer):
     educations = EducationSerializer(many=True, read_only=True)
     achievements = AchievementSerializer(many=True, read_only=True)
     personalprojects = PersonalProjectSerializer(many=True, read_only=True)
+    skills = SkillSerializer(many=True, read_only=True)
+    interests = InterestSerializer(many=True, read_only=True)
     avatar = serializers.ImageField(read_only=True)
 
     class Meta:
@@ -73,6 +95,7 @@ class ResumeSerializer(serializers.ModelSerializer):
             if not value.isnumeric():
                 raise serializers.ValidationError(
                     'Please Provide Only Numbers in Mobile')
+        return value
 
 
 class ResumeAvaatarSerializer(serializers.ModelSerializer):

@@ -6,8 +6,8 @@ from rest_framework import viewsets
 from rest_framework.viewsets import ModelViewSet
 from django.core.exceptions import PermissionDenied
 from resume.api.permissions import IsOwnerOrReadOnly
-from resume.models import Resume, Certificate, WorkExperience, Education, Achievement, PersonalProject
-from resume.api.serializers import ResumeSerializer, CertificateSerializer, WorkExperienceSerializer, EducationSerializer, AchievementSerializer, PersonalProjectSerializer, ResumeAvaatarSerializer
+from resume.models import Resume, Certificate, WorkExperience, Education, Achievement, PersonalProject, Skill, Interest
+from resume.api.serializers import ResumeSerializer, CertificateSerializer, WorkExperienceSerializer, EducationSerializer, AchievementSerializer, PersonalProjectSerializer, ResumeAvaatarSerializer, SkillSerializer, InterestSerializer
 
 
 # Resume model viewsets
@@ -163,3 +163,53 @@ class AvatarUpdateView(generics.UpdateAPIView):
         resume_pk = self.kwargs.get("resume_pk")
         resume = generics.get_object_or_404(Resume, pk=resume_pk)
         return resume
+
+
+# Skill model viewsets
+
+class SkillCreateAPIView(generics.CreateAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+
+    def perform_create(self, serializer):
+        resume_pk = self.kwargs.get("resume_pk")
+        resume = generics.get_object_or_404(Resume, pk=resume_pk)
+        user = resume.user
+        if user == self.request.user:
+            serializer.save(resume=resume, user=user)
+        else:
+            raise PermissionDenied()
+
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+
+class SkillDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+
+# Interest model viewsets
+
+class InterestCreateAPIView(generics.CreateAPIView):
+    queryset = Interest.objects.all()
+    serializer_class = InterestSerializer
+
+    def perform_create(self, serializer):
+        resume_pk = self.kwargs.get("resume_pk")
+        resume = generics.get_object_or_404(Resume, pk=resume_pk)
+        user = resume.user
+        if user == self.request.user:
+            serializer.save(resume=resume, user=user)
+        else:
+            raise PermissionDenied()
+
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+
+class InterestDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Interest.objects.all()
+    serializer_class = InterestSerializer
+
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]

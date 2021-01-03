@@ -15,8 +15,6 @@ class Resume(models.Model):
     github_url = models.URLField(null=True)
     designation = models.CharField(max_length=50)
     summary = models.CharField(max_length=300)
-    skills = models.TextField(null=True)
-    interests = models.TextField(null=True)
     avatar = models.ImageField(upload_to="", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -105,6 +103,32 @@ class PersonalProject(models.Model):
                                related_name="personalprojects")
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="project_user")
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Skill(models.Model):
+
+    skill_name = models.CharField(max_length=100)
+
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
+                               related_name="skills")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="skill_user")
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Interest(models.Model):
+
+    interest_name = models.CharField(max_length=100)
+
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
+                               related_name="interests")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="interest_user")
 
     def __str__(self):
         return str(self.id)
