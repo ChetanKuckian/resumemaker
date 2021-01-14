@@ -36,12 +36,12 @@ urlpatterns = [
 
     path('resumes/<int:resume_pk>/skill/',
          SkillCreateAPIView.as_view(), name="resume-skill"),
-    path('personalproject/<int:pk>/', SkillDetailAPIView.as_view(),
+    path('skill/<int:pk>/', SkillDetailAPIView.as_view(),
          name="skill-detail"),
 
     path('resumes/<int:resume_pk>/interest/',
          InterestCreateAPIView.as_view(), name="resume-interest"),
-    path('personalproject/<int:pk>/', InterestDetailAPIView.as_view(),
+    path('interest/<int:pk>/', InterestDetailAPIView.as_view(),
          name="interest-detail"),
 
     path("resumes/<int:resume_pk>/avatar",

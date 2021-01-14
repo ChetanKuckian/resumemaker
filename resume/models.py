@@ -33,8 +33,8 @@ class Certificate(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="certificates")
 
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="cert_user")
+    # user = models.ForeignKey(
+    #     User, on_delete=models.CASCADE, related_name="cert_user")
 
     def __str__(self):
         return self.certificate_name
@@ -51,8 +51,8 @@ class WorkExperience(models.Model):
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="workexperiences")
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="workexp_user")
+    # user = models.ForeignKey(
+    #     User, on_delete=models.CASCADE, related_name="workexp_user")
 
     def __str__(self):
         return str(self.id)
@@ -68,8 +68,8 @@ class Education(models.Model):
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="educations")
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="edu_user")
+    # user = models.ForeignKey(
+    #     User, on_delete=models.CASCADE, related_name="edu_user")
 
     def __str__(self):
         return str(self.id)
@@ -84,8 +84,8 @@ class Achievement(models.Model):
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="achievements")
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="achievement_user")
+    # user = models.ForeignKey(
+    #     User, on_delete=models.CASCADE, related_name="achievement_user")
 
     def __str__(self):
         return str(self.id)
@@ -101,8 +101,8 @@ class PersonalProject(models.Model):
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="personalprojects")
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="project_user")
+    # user = models.ForeignKey(
+    #     User, on_delete=models.CASCADE, related_name="project_user")
 
     def __str__(self):
         return str(self.id)
@@ -114,8 +114,8 @@ class Skill(models.Model):
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="skills")
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="skill_user")
+    # user = models.ForeignKey(
+    #     User, on_delete=models.CASCADE, related_name="skill_user")
 
     def __str__(self):
         return str(self.id)
@@ -127,8 +127,8 @@ class Interest(models.Model):
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE,
                                related_name="interests")
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="interest_user")
+    # user = models.ForeignKey(
+    #     User, on_delete=models.CASCADE, related_name="interest_user")
 
     def __str__(self):
         return str(self.id)

@@ -3,73 +3,51 @@ from resume.models import Resume, Certificate, WorkExperience, Education, Achiev
 
 
 class CertificateSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    resume = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Certificate
-        # exclude = ("resume",)
-        fields = "__all__"
+        exclude = ("resume",)
 
 
 class WorkExperienceSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    resume = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = WorkExperience
-        # exclude = ("resume",)
-        fields = "__all__"
+        exclude = ("resume",)
 
 
 class EducationSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    resume = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Education
-        # exclude = ("resume",)
-        fields = "__all__"
+        exclude = ("resume",)
 
 
 class AchievementSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    resume = serializers.StringRelatedField(read_only=True)
-
     class Meta:
         model = Achievement
-        # exclude = ("resume",)
-        fields = "__all__"
+        exclude = ("resume",)
 
 
 class PersonalProjectSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    resume = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = PersonalProject
-        # exclude = ("resume",)
-        fields = "__all__"
+        exclude = ("resume",)
 
 
 class SkillSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    resume = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Skill
-        # exclude = ("resume",)
-        fields = "__all__"
+        exclude = ("resume",)
 
 
 class InterestSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    resume = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Interest
-        # exclude = ("resume",)
-        fields = "__all__"
+        exclude = ("resume",)
 
 
 class ResumeSerializer(serializers.ModelSerializer):
